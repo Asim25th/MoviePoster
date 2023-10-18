@@ -22,8 +22,8 @@
             }
 
             Console.WriteLine("КИНОАФИША - Программа для проверки наличия свободных мест на фильм"); // вывод информации о программе на экран
-            Console.WriteLine("Функции программы:\n1. Выбор фильма\n2. Выбор дня\n3. Просмотр списка занятых и свободных мест");
-            Console.WriteLine("Нажмите Enter, чтобы продолжить");
+            Console.WriteLine("\nФункции программы:\n1. Выбор фильма\n2. Выбор дня\n3. Просмотр списка занятых и свободных мест");
+            Console.WriteLine("\nНажмите Enter, чтобы продолжить");
             Console.ReadKey();
             Console.Clear(); // очистка консоли от информации о программе
             chooseFilm();
@@ -38,20 +38,41 @@
             }
             Console.Write("Введите номер интересующего фильма: ");
             int filmChoice = int.Parse(Console.ReadLine());
-            chooseDate(filmChoice);
+            if (filmChoice < 1 || filmChoice > availableFilms.Length) // проверка на корректность введенных значений
+            {
+                Console.WriteLine("\nОШИБКА: Введенное значение не корректно. Нажмите Enter и попробуйте снова.");
+                Console.ReadKey();
+                Console.Clear();
+                chooseFilm();
+            }
+            else 
+            {
+                Console.WriteLine();
+                chooseDate(filmChoice); 
+            }
         }
 
         static void chooseDate(int filmChoice) // выбор дня
         {
-            Console.WriteLine("\nСвободные дни:");
+            Console.WriteLine("Свободные дни:");
             for (int day_number = 0; day_number <= availableDates.Length - 1; day_number++)
             {
                 Console.WriteLine($"{day_number + 1}. {availableDates[day_number]}");
             }
             Console.Write("Введите номер удобного дня: ");
             int dayChoice = int.Parse(Console.ReadLine());
-            Console.Clear();
-            showSeats(cinemaHall, dayChoice, filmChoice);
+            if (dayChoice < 1 || dayChoice > availableDates.Length) // проверка на корректность введенных значений
+            {
+                Console.WriteLine("\nОШИБКА: Введенное значение не корректно. Нажмите Enter и попробуйте снова.");
+                Console.ReadKey();
+                Console.Clear();
+                chooseDate(filmChoice);
+            }
+            else
+            {
+                Console.Clear();
+                showSeats(cinemaHall, dayChoice, filmChoice);
+            }
         }
 
         static void showSeats(int[,] cinemaHall, int dayChoice, int filmChoice) // просмотр списка занятых и свободных мест
