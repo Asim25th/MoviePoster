@@ -2,13 +2,13 @@
 {
     class Program
     {
-        static string[] availableFilms = new string[]
+        static string[] AvailableFilms = new string[]
         {
             "Barbie / Барби (Warner Bros. Pictures)", "Oppenheimer / Оппенгеймер (Universal Pictures)",
-            "Taylor Swift: The Eras Tour (Cinemark Theatres)", "Смешарики снимают кино (НМГ Кинопрокат)"
+            "Taylor Swift | The Eras Tour (Cinemark Theatres)", "Смешарики снимают кино (НМГ Кинопрокат)"
         };
-        static string[] availableDates = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" };
-        static int[,] cinemaHall = new int[7, 10]; // создание кинозала с 10 местами на каждом из 7 рядов
+        static string[] AvailableDates = new string[] { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" };
+        static int[,] CinemaHall = new int[7, 10]; // создание кинозала с 10 местами на каждом из 7 рядов
         
         static void Main(string[] args)
         {
@@ -17,7 +17,7 @@
             {
                 for (int seat = 0; seat < 10; seat++) // в каждом ряду в кинозале по 10 мест
                 {
-                    cinemaHall[row, seat] = random.Next(2);
+                    CinemaHall[row, seat] = random.Next(2);
                 }
             }
 
@@ -26,58 +26,58 @@
             Console.WriteLine("\nНажмите Enter, чтобы продолжить");
             Console.ReadKey();
             Console.Clear(); // очистка консоли от информации о программе
-            chooseFilm();
+            ChooseFilm();
         }
 
-        static void chooseFilm() // выбор фильма
+        static void ChooseFilm() // выбор фильма
         {
             Console.WriteLine("Доступные сейчас фильмы:");
-            for (int film_number = 0; film_number <= availableFilms.Length - 1; film_number++)
+            for (int film_number = 0; film_number <= AvailableFilms.Length - 1; film_number++)
             {
-                Console.WriteLine($"{film_number + 1}. {availableFilms[film_number]}");
+                Console.WriteLine($"{film_number + 1}. {AvailableFilms[film_number]}");
             }
             Console.Write("Введите номер интересующего фильма: ");
             int filmChoice = int.Parse(Console.ReadLine());
-            if (filmChoice < 1 || filmChoice > availableFilms.Length) // проверка на корректность введенных значений
+            if (filmChoice < 1 || filmChoice > AvailableFilms.Length) // проверка на корректность введенных значений
             {
                 Console.WriteLine("\nОШИБКА: Введенное значение не корректно. Нажмите Enter и попробуйте снова.");
                 Console.ReadKey();
                 Console.Clear();
-                chooseFilm();
+                ChooseFilm();
             }
             else 
             {
                 Console.WriteLine();
-                chooseDate(filmChoice); 
+                ChooseDate(filmChoice); 
             }
         }
 
-        static void chooseDate(int filmChoice) // выбор дня
+        static void ChooseDate(int filmChoice) // выбор дня
         {
             Console.WriteLine("Свободные дни:");
-            for (int day_number = 0; day_number <= availableDates.Length - 1; day_number++)
+            for (int day_number = 0; day_number <= AvailableDates.Length - 1; day_number++)
             {
-                Console.WriteLine($"{day_number + 1}. {availableDates[day_number]}");
+                Console.WriteLine($"{day_number + 1}. {AvailableDates[day_number]}");
             }
             Console.Write("Введите номер удобного дня: ");
             int dayChoice = int.Parse(Console.ReadLine());
-            if (dayChoice < 1 || dayChoice > availableDates.Length) // проверка на корректность введенных значений
+            if (dayChoice < 1 || dayChoice > AvailableDates.Length) // проверка на корректность введенных значений
             {
                 Console.WriteLine("\nОШИБКА: Введенное значение не корректно. Нажмите Enter и попробуйте снова.");
                 Console.ReadKey();
                 Console.Clear();
-                chooseDate(filmChoice);
+                ChooseDate(filmChoice);
             }
             else
             {
                 Console.Clear();
-                showSeats(cinemaHall, dayChoice, filmChoice);
+                ShowSeats(CinemaHall, dayChoice, filmChoice);
             }
         }
 
-        static void showSeats(int[,] cinemaHall, int dayChoice, int filmChoice) // просмотр списка занятых и свободных мест
+        static void ShowSeats(int[,] cinemaHall, int dayChoice, int filmChoice) // просмотр списка занятых и свободных мест
         {
-            Console.WriteLine($"{availableFilms[filmChoice - 1]} - {availableDates[dayChoice - 1]}");
+            Console.WriteLine($"{AvailableFilms[filmChoice - 1]} - {AvailableDates[dayChoice - 1]}");
             Console.WriteLine("\n1 - место занято, 0 - место свободно");
 
             Console.WriteLine("\nПлан кинозала:"); // вывод плана кинозала с отображением свободных мест как 0 и занятых мест как 1
